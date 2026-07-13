@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>امتحان اللغة العربية - الأستاذ مصطفى فهمي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#10312E;
+    --bg-deep2:#0B2422;
+    --parchment:#F3E6C4;
+    --parchment-dark:#E3D2A0;
+    --gold:#D9A441;
+    --gold-light:#F0C878;
+    --coral:#E2572B;
+    --teal:#2F8F82;
+    --ink:#1F2B27;
+    --cream:#F8EFD8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 10%, #163d39 0%, transparent 40%),
+      radial-gradient(circle at 80% 90%, #163d39 0%, transparent 40%),
+      var(--bg-deep);
+    font-family:'Cairo', sans-serif;
+    color:var(--ink);
+    padding-bottom:60px;
+  }
+  h1,h2,h3,.display{font-family:'Lalezar', sans-serif; font-weight:400;}
+
+  /* ===== HERO ===== */
+  .hero{
+    text-align:center;
+    padding:48px 20px 40px;
+    color:var(--cream);
+    position:relative;
+    border-bottom:3px dashed var(--gold);
+  }
+  .hero .compass{
+    font-size:44px;
+    display:inline-block;
+    animation:spin 8s linear infinite;
+  }
+  @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  .hero h1{
+    font-size:clamp(32px,6vw,52px);
+    color:var(--gold-light);
+    margin:8px 0 4px;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.35);
+  }
+  .hero p.tagline{
+    font-size:18px;
+    color:var(--parchment);
+    margin:4px 0 20px;
+    opacity:.9;
+  }
+  .hero .teacher{
+    display:inline-block;
+    background:rgba(217,164,65,0.15);
+    border:1px solid var(--gold);
+    padding:6px 18px;
+    border-radius:30px;
+    font-size:15px;
+    color:var(--gold-light);
+  }
+  .name-box{
+    max-width:360px;
+    margin:26px auto 0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .name-box label{font-size:15px;color:var(--parchment);}
+  .name-box input{
+    padding:12px 16px;
+    border-radius:12px;
+    border:2px solid var(--gold);
+    background:var(--parchment);
+    font-family:'Cairo';
+    font-size:16px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ===== TRAIL / STATIONS ===== */
+  .trail{
+    max-width:760px;
+    margin:0 auto;
+    padding:30px 20px 0;
+    position:relative;
+  }
+  .trail::before{
+    content:"";
+    position:absolute;
+    right:50%;
+    top:0;
+    bottom:0;
+    width:0;
+    border-right:4px dashed var(--gold);
+    opacity:.5;
+    z-index:0;
+  }
+  .station{
+    position:relative;
+    z-index:1;
+    background:var(--parchment);
+    border:2px solid var(--parchment-dark);
+    border-radius:18px;
+    padding:26px 24px;
+    margin:0 0 44px;
+    box-shadow:0 10px 0 rgba(0,0,0,0.18), 0 14px 24px rgba(0,0,0,0.25);
+  }
+  .station-badge{
+    position:absolute;
+    top:-22px;
+    right:50%;
+    transform:translateX(50%);
+    width:46px;height:46px;
+    background:var(--gold);
+    border:3px solid var(--bg-deep2);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Lalezar';
+    font-size:20px;
+    color:var(--ink);
+  }
+  .station h2{
+    text-align:center;
+    font-size:26px;
+    color:var(--teal);
+    margin:14px 0 6px;
+  }
+  .station .icon-row{text-align:center;font-size:30px;margin-bottom:6px;}
+  .station .instructions{
+    text-align:center;
+    font-size:15px;
+    color:#4a4a3f;
+    margin-bottom:18px;
+  }
+  .passage{
+    background:#fffaec;
+    border:1px dashed var(--gold);
+    border-radius:12px;
+    padding:18px 20px;
+    font-size:19px;
+    line-height:2.1;
+    margin-bottom:16px;
+  }
+
+  /* buttons */
+  .btn{
+    display:inline-block;
+    background:var(--teal);
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:30px;
+    font-family:'Cairo';
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    box-shadow:0 4px 0 #1f6a60;
+    transition:transform .1s;
+  }
+  .btn:active{transform:translateY(3px); box-shadow:0 1px 0 #1f6a60;}
+  .btn.coral{background:var(--coral); box-shadow:0 4px 0 #a03918;}
+  .btn.gold{background:var(--gold); color:var(--ink); box-shadow:0 4px 0 #a37a2b;}
+  .btn:disabled{opacity:.5; cursor:not-allowed;}
+  .center{text-align:center;}
+
+  audio{width:100%; margin-top:12px; border-radius:20px;}
+  .status-msg{font-size:14px; margin-top:10px; color:var(--coral); text-align:center;}
+
+  /* question blocks */
+  .q{
+    background:#fffaec;
+    border:1px solid var(--parchment-dark);
+    border-radius:12px;
+    padding:14px 18px;
+    margin-bottom:14px;
+  }
+  .q p.qtext{font-size:17px; font-weight:700; margin:0 0 10px;}
+  .options{display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
+  .options label{
+    background:#fff;
+    border:2px solid var(--parchment-dark);
+    border-radius:24px;
+    padding:8px 18px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.15s;
+  }
+  .options input{display:none;}
+  .options input:checked + span{color:#fff;}
+  .options label:has(input:checked){
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+  }
+  .sentence-target{color:var(--coral); text-decoration:underline; font-weight:800;}
+
+  /* results */
+  .result-box{
+    max-width:640px;
+    margin:30px auto 0;
+    background:var(--gold-light);
+    border:3px solid var(--gold);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    display:none;
+  }
+  .result-box.show{display:block; animation:pop .4s ease;}
+  @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+  .chest{font-size:60px;}
+  .result-box h2{color:var(--coral); margin:6px 0;}
+  .score-num{font-size:42px; font-family:'Lalezar'; color:var(--teal);}
+  .grade-msg{font-size:18px; margin-top:8px;}
+  .final-btn-wrap{text-align:center; margin-top:10px;}
+
+  footer.credit{
+    text-align:center;
+    color:var(--parchment);
+    opacity:.6;
+    font-size:13px;
+    margin-top:40px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero .compass{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="compass">🧭</span>
+  <h1>رحلة الباحث عن كنز اللغة</h1>
+  <p class="tagline">امتحان اللغة العربية - نحو وقراءة واستماع</p>
+  <div class="teacher">📚 إعداد: الأستاذ / مصطفى فهمي</div>
+  <div class="name-box">
+    <label for="studentName">اسم المستكشف الصغير:</label>
+    <input type="text" id="studentName" placeholder="اكتب اسمك هنا...">
+  </div>
+</div>
+
+<div class="trail">
+
+  <!-- STATION 1: READING ALOUD -->
+  <section class="station">
+    <div class="station-badge">١</div>
+    <div class="icon-row">📖🎙️</div>
+    <h2>محطة القارئ الشجاع</h2>
+    <p class="instructions">اقرأ القطعة التالية بصوتٍ عالٍ وواضح، ثم اضغط على زر التسجيل لتسمع صوتك!</p>
+    <div class="passage">
+      <strong>الجزيرة الغامضة</strong><br><br>
+      في صباحٍ مشرقٍ، ركب الطفل الشجاع "يوسف" قاربًا صغيرًا متجهًا إلى جزيرةٍ غامضةٍ سمع عنها من جدّه العجوز. حملَ معه خريطةً قديمةً ومصباحًا وحقيبةً مليئةً بالطعام. وحين وصل، وجد أشجارًا عملاقةً وطيورًا ملوّنةً تُغرّد بصوتٍ جميل. وفجأة، ظهر ببغاءٌ حكيمٌ وقال له: "لن تجد الكنز الحقيقي إلا إذا ساعدت كلّ من يحتاج إليك في الطريق." ففرح يوسف، وقرّر أن يبدأ رحلته بقلبٍ طيّب.
+    </div>
+    <div class="center">
+      <button class="btn coral" id="recordBtn">🎙️ ابدأ التسجيل</button>
+      <button class="btn" id="stopBtn" disabled>⏹️ إيقاف</button>
+    </div>
+    <div id="recStatus" class="status-msg"></div>
+    <audio id="recPlayback" controls style="display:none;"></audio>
+  </section>
+
+  <!-- STATION 2: LISTENING -->
+  <section class="station">
+    <div class="station-badge">٢</div>
+    <div class="icon-row">👂🔊</div>
+    <h2>محطة الاستماع الذكي</h2>
+    <p class="instructions">اضغط الزر لتستمع إلى القصة، ثم أجب عن الأسئلة.</p>
+    <div class="center">
+      <button class="btn gold" id="playListen">🔊 استمع إلى القصة</button>
+    </div>
+    <div class="passage" id="listenText" style="margin-top:16px;">
+      كانت هناك نملةٌ صغيرةٌ تعبت من شدّة الحرّ، فسقطت في النهر. رأتها حمامةٌ طيّبةٌ فألقت لها ورقةً لتنجو. شكرت النملة الحمامة ووعدت أن تردّ الجميل يومًا ما. وبعد أيام، أراد صيّادٌ أن يصطاد الحمامة بشبكته، فأسرعت النملة ولدغت قدم الصيّاد، فارتبك وطارت الحمامة سالمةً. وهكذا تعلّم الجميع أنّ المعروف لا يضيع.
+    </div>
+
+    <div class="q">
+      <p class="qtext">١) لماذا سقطت النملة في النهر؟</p>
+      <div class="options">
+        <label><input type="radio" name="l1" value="1"><span>من شدّة الحرّ</span></label>
+        <label><input type="radio" name="l1" value="0"><span>لأنها كانت تلعب</span></label>
+        <label><input type="radio" name="l1" value="0"><span>لأنّ الريح دفعتها</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٢) ماذا فعلت الحمامة لإنقاذ النملة؟</p>
+      <div class="options">
+        <label><input type="radio" name="l2" value="1"><span>ألقت لها ورقة</span></label>
+        <label><input type="radio" name="l2" value="0"><span>أعطتها طعامًا</span></label>
+        <label><input type="radio" name="l2" value="0"><span>حملتها بمنقارها</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٣) كيف ردّت النملة الجميل للحمامة؟</p>
+      <div class="options">
+        <label><input type="radio" name="l3" value="0"><span>نادت الطيور</span></label>
+        <label><input type="radio" name="l3" value="1"><span>لدغت قدم الصيّاد</span></label>
+        <label><input type="radio" name="l3" value="0"><span>بكت بصوتٍ عالٍ</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٤) ما الدرس المستفاد من القصة؟</p>
+      <div class="options">
+        <label><input type="radio" name="l4" value="1"><span>المعروف لا يضيع</span></label>
+        <label><input type="radio" name="l4" value="0"><span>القوة أهم من الصداقة</span></label>
+        <label><input type="radio" name="l4" value="0"><span>يجب الخوف من كل الناس</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATION 3: GRAMMAR - FA'IL, MAF'OOL BIH, MUBTADA, KHABAR -->
+  <section class="station">
+    <div class="station-badge">٣</div>
+    <div class="icon-row">✍️🔤</div>
+    <h2>محطة أبطال الجملة</h2>
+    <p class="instructions">حدّد نوع الكلمة التي تحتها خط في كل جملة.</p>
+
+    <div class="q">
+      <p class="qtext">١) أَكَلَ <span class="sentence-target">الوَلَدُ</span> التفاحةَ.</p>
+      <div class="options">
+        <label><input type="radio" name="g1" value="1"><span>فاعل</span></label>
+        <label><input type="radio" name="g1" value="0"><span>مفعول به</span></label>
+        <label><input type="radio" name="g1" value="0"><span>مبتدأ</span></label>
+        <label><input type="radio" name="g1" value="0"><span>خبر</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٢) شَرِبَ الطفلُ <span class="sentence-target">العصيرَ</span>.</p>
+      <div class="options">
+        <label><input type="radio" name="g2" value="0"><span>فاعل</span></label>
+        <label><input type="radio" name="g2" value="1"><span>مفعول به</span></label>
+        <label><input type="radio" name="g2" value="0"><span>مبتدأ</span></label>
+        <label><input type="radio" name="g2" value="0"><span>خبر</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٣) <span class="sentence-target">الجوُّ</span> جميلٌ اليوم.</p>
+      <div class="options">
+        <label><input type="radio" name="g3" value="0"><span>فاعل</span></label>
+        <label><input type="radio" name="g3" value="0"><span>مفعول به</span></label>
+        <label><input type="radio" name="g3" value="1"><span>مبتدأ</span></label>
+        <label><input type="radio" name="g3" value="0"><span>خبر</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٤) الحديقةُ <span class="sentence-target">واسعةٌ</span>.</p>
+      <div class="options">
+        <label><input type="radio" name="g4" value="0"><span>فاعل</span></label>
+        <label><input type="radio" name="g4" value="0"><span>مفعول به</span></label>
+        <label><input type="radio" name="g4" value="0"><span>مبتدأ</span></label>
+        <label><input type="radio" name="g4" value="1"><span>خبر</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATION 4: RAF3 & NASB SIGNS -->
+  <section class="station">
+    <div class="station-badge">٤</div>
+    <div class="icon-row">📜⚙️</div>
+    <h2>محطة علامات الإعراب</h2>
+    <p class="instructions">اختر العلامة الصحيحة لكل حالة.</p>
+
+    <div class="q">
+      <p class="qtext">١) علامة رفع الاسم المفرد هي:</p>
+      <div class="options">
+        <label><input type="radio" name="r1" value="1"><span>الضمّة</span></label>
+        <label><input type="radio" name="r1" value="0"><span>الفتحة</span></label>
+        <label><input type="radio" name="r1" value="0"><span>الكسرة</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٢) علامة نصب الاسم المفرد هي:</p>
+      <div class="options">
+        <label><input type="radio" name="r2" value="0"><span>الضمّة</span></label>
+        <label><input type="radio" name="r2" value="1"><span>الفتحة</span></label>
+        <label><input type="radio" name="r2" value="0"><span>الواو</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٣) علامة رفع جمع المذكر السالم هي:</p>
+      <div class="options">
+        <label><input type="radio" name="r3" value="1"><span>الواو</span></label>
+        <label><input type="radio" name="r3" value="0"><span>الياء</span></label>
+        <label><input type="radio" name="r3" value="0"><span>الضمّة</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٤) علامة نصب جمع المذكر السالم هي:</p>
+      <div class="options">
+        <label><input type="radio" name="r4" value="0"><span>الواو</span></label>
+        <label><input type="radio" name="r4" value="1"><span>الياء</span></label>
+        <label><input type="radio" name="r4" value="0"><span>الفتحة</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATION 5: MUFRAD / MUTHANNA / JAM3 -->
+  <section class="station">
+    <div class="station-badge">٥</div>
+    <div class="icon-row">🔢📘</div>
+    <h2>محطة واحد، اثنان، وكثيرون</h2>
+    <p class="instructions">صنّف كل كلمة: هل هي مفرد أم مثنى أم جمع؟</p>
+
+    <div class="q">
+      <p class="qtext">١) كتابٌ</p>
+      <div class="options">
+        <label><input type="radio" name="m1" value="1"><span>مفرد</span></label>
+        <label><input type="radio" name="m1" value="0"><span>مثنى</span></label>
+        <label><input type="radio" name="m1" value="0"><span>جمع</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٢) كتابانِ</p>
+      <div class="options">
+        <label><input type="radio" name="m2" value="0"><span>مفرد</span></label>
+        <label><input type="radio" name="m2" value="1"><span>مثنى</span></label>
+        <label><input type="radio" name="m2" value="0"><span>جمع</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٣) كتبٌ</p>
+      <div class="options">
+        <label><input type="radio" name="m3" value="0"><span>مفرد</span></label>
+        <label><input type="radio" name="m3" value="0"><span>مثنى</span></label>
+        <label><input type="radio" name="m3" value="1"><span>جمع</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٤) معلمةٌ</p>
+      <div class="options">
+        <label><input type="radio" name="m4" value="1"><span>مفرد</span></label>
+        <label><input type="radio" name="m4" value="0"><span>مثنى</span></label>
+        <label><input type="radio" name="m4" value="0"><span>جمع</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٥) معلمتانِ</p>
+      <div class="options">
+        <label><input type="radio" name="m5" value="0"><span>مفرد</span></label>
+        <label><input type="radio" name="m5" value="1"><span>مثنى</span></label>
+        <label><input type="radio" name="m5" value="0"><span>جمع</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٦) معلماتٌ</p>
+      <div class="options">
+        <label><input type="radio" name="m6" value="0"><span>مفرد</span></label>
+        <label><input type="radio" name="m6" value="0"><span>مثنى</span></label>
+        <label><input type="radio" name="m6" value="1"><span>جمع</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATION 6: PASSAGE + VOCABULARY -->
+  <section class="station">
+    <div class="station-badge">٦</div>
+    <div class="icon-row">📜🔑</div>
+    <h2>محطة كنز الكلمات</h2>
+    <p class="instructions">اقرأ القطعة، ثم اختر المعنى الصحيح لكل كلمة.</p>
+    <div class="passage">
+      عثر يوسف أخيرًا على الكنز داخل صندوقٍ خشبيٍّ عتيقٍ. لم يكن الكنز ذهبًا ولا جواهر، بل كان كتابًا سحريًّا مليئًا بالحِكَم والقصص. ابتسم يوسف وأدرك أنّ أثمن كنزٍ هو العلم والمعرفة.
+    </div>
+
+    <div class="q">
+      <p class="qtext">١) معنى كلمة "عَثَرَ":</p>
+      <div class="options">
+        <label><input type="radio" name="v1" value="1"><span>وَجَدَ</span></label>
+        <label><input type="radio" name="v1" value="0"><span>فَقَدَ</span></label>
+        <label><input type="radio" name="v1" value="0"><span>باعَ</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٢) معنى كلمة "عتيقٍ":</p>
+      <div class="options">
+        <label><input type="radio" name="v2" value="0"><span>جديد</span></label>
+        <label><input type="radio" name="v2" value="1"><span>قديم</span></label>
+        <label><input type="radio" name="v2" value="0"><span>ثقيل</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٣) معنى كلمة "الحِكَم":</p>
+      <div class="options">
+        <label><input type="radio" name="v3" value="0"><span>الألعاب</span></label>
+        <label><input type="radio" name="v3" value="1"><span>جمع حكمة</span></label>
+        <label><input type="radio" name="v3" value="0"><span>الأخبار</span></label>
+      </div>
+    </div>
+    <div class="q">
+      <p class="qtext">٤) معنى كلمة "أثمن":</p>
+      <div class="options">
+        <label><input type="radio" name="v4" value="1"><span>أغلى</span></label>
+        <label><input type="radio" name="v4" value="0"><span>أرخص</span></label>
+        <label><input type="radio" name="v4" value="0"><span>أثقل</span></label>
+      </div>
+    </div>
+  </section>
+
+  <div class="center">
+    <button class="btn coral" id="finishBtn" style="font-size:18px;padding:16px 36px;">🏆 افتح صندوق الكنز (تسليم الامتحان)</button>
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <div class="chest" id="chestIcon">📦</div>
+    <h2 id="resultName">أحسنت أيها المستكشف!</h2>
+    <div class="score-num" id="scoreNum"></div>
+    <p class="grade-msg" id="gradeMsg"></p>
+    <p class="grade-msg" id="sendStatus" style="font-size:14px;opacity:.85;"></p>
+  </div>
+
+</div>
+
+<footer class="credit">تصميم امتحان تفاعلي - الأستاذ مصطفى فهمي 🌿</footer>
+
+<script>
+  // ---------- STATION 1: RECORDING ----------
+  let mediaRecorder, chunks = [];
+  const recordBtn = document.getElementById('recordBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const recStatus = document.getElementById('recStatus');
+  const recPlayback = document.getElementById('recPlayback');
+
+  recordBtn.addEventListener('click', async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      chunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = e => chunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        recPlayback.src = URL.createObjectURL(blob);
+        recPlayback.style.display = 'block';
+        recStatus.textContent = 'رائع! استمع الآن إلى قراءتك 🎉';
+        recStatus.style.color = '#2F8F82';
+        stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRecorder.start();
+      recordBtn.disabled = true;
+      stopBtn.disabled = false;
+      recStatus.textContent = '🔴 جارٍ التسجيل... اقرأ الآن بصوتٍ عالٍ';
+      recStatus.style.color = '#E2572B';
+    } catch (err) {
+      recStatus.textContent = 'تعذّر الوصول إلى الميكروفون. يرجى السماح باستخدامه من إعدادات المتصفح.';
+    }
+  });
+
+  stopBtn.addEventListener('click', () => {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+    }
+    recordBtn.disabled = false;
+    stopBtn.disabled = true;
+  });
+
+  // ---------- STATION 2: TEXT TO SPEECH ----------
+  const playListenBtn = document.getElementById('playListen');
+  const listenText = document.getElementById('listenText').textContent.trim();
+
+  playListenBtn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) {
+      alert('عذرًا، متصفحك لا يدعم خاصية القراءة الصوتية.');
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(listenText);
+    const voices = window.speechSynthesis.getVoices();
+    const arVoice = voices.find(v => v.lang && v.lang.startsWith('ar'));
+    if (arVoice) utter.voice = arVoice;
+    utter.lang = 'ar-SA';
+    utter.rate = 0.9;
+    window.speechSynthesis.speak(utter);
+  });
+
+  // ---------- FINISH & SCORE ----------
+  const groups = ['l1','l2','l3','l4','g1','g2','g3','g4','r1','r2','r3','r4','m1','m2','m3','m4','m5','m6','v1','v2','v3','v4'];
+
+  const stationLabels = {
+    l1:'استماع ١', l2:'استماع ٢', l3:'استماع ٣', l4:'استماع ٤',
+    g1:'نحو ١ (فاعل)', g2:'نحو ٢ (مفعول به)', g3:'نحو ٣ (مبتدأ)', g4:'نحو ٤ (خبر)',
+    r1:'رفع مفرد', r2:'نصب مفرد', r3:'رفع جمع مذكر', r4:'نصب جمع مذكر',
+    m1:'كتابٌ', m2:'كتابانِ', m3:'كتبٌ', m4:'معلمةٌ', m5:'معلمتانِ', m6:'معلماتٌ',
+    v1:'معنى عثر', v2:'معنى عتيق', v3:'معنى الحِكَم', v4:'معنى أثمن'
+  };
+
+  document.getElementById('finishBtn').addEventListener('click', async () => {
+    let correct = 0, answered = 0;
+    const detailLines = [];
+    groups.forEach(name => {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      const label = stationLabels[name] || name;
+      if (checked) {
+        answered++;
+        const ok = checked.value === '1';
+        if (ok) correct++;
+        detailLines.push(`${label}: ${checked.nextElementSibling.textContent} ${ok ? '✔' : '✘'}`);
+      } else {
+        detailLines.push(`${label}: (لم يُجب) ✘`);
+      }
+    });
+    const total = groups.length;
+    const percent = Math.round((correct / total) * 100);
+
+    let grade = '';
+    if (percent >= 90) grade = 'ممتاز! أنت مستكشف حقيقي للغة العربية 🌟';
+    else if (percent >= 75) grade = 'جيد جدًا! اقتربت كثيرًا من الكنز 🏅';
+    else if (percent >= 50) grade = 'جيد! استمر في المحاولة وستصل إلى الكنز 💪';
+    else grade = 'لا بأس، راجع دروسك وحاول مجددًا، الكنز ينتظرك! 🌱';
+
+    const studentName = document.getElementById('studentName').value.trim() || 'بدون اسم';
+    document.getElementById('resultName').textContent = studentName !== 'بدون اسم'
+      ? `أحسنت يا ${studentName}!`
+      : 'أحسنت أيها المستكشف!';
+    document.getElementById('scoreNum').textContent = `${correct} / ${total}`;
+    document.getElementById('gradeMsg').textContent =
+      `${grade}  (أجبت عن ${answered} من ${total} سؤالًا)`;
+
+    const box = document.getElementById('resultBox');
+    box.classList.add('show');
+    document.getElementById('chestIcon').textContent = percent >= 50 ? '🏆' : '📦';
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    const sendStatus = document.getElementById('sendStatus');
+    sendStatus.textContent = 'جارٍ إرسال النتيجة إلى المعلم...';
+
+    try {
+      const response = await fetch('https://formspree.io/f/xgojreqn', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'اسم الطالب': studentName,
+          'النتيجة': `${correct} / ${total} (${percent}%)`,
+          'التقييم': grade,
+          'تفاصيل الإجابات': detailLines.join('\n')
+        })
+      });
+      if (response.ok) {
+        sendStatus.textContent = '✅ تم إرسال النتيجة إلى المعلم بنجاح';
+      } else {
+        sendStatus.textContent = '⚠️ حدث خطأ أثناء الإرسال، برجاء إخبار المعلم يدويًا.';
+      }
+    } catch (err) {
+      sendStatus.textContent = '⚠️ تعذّر الاتصال بالإنترنت لإرسال النتيجة.';
+    }
+  });
+
+  // warm up voices list for some browsers
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+  }
+</script>
+
+</body>
+</html>
